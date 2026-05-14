@@ -160,13 +160,13 @@ pub fn print_cfg(bytes: &[u8]) {
 }
 
 /// Generate and open the control-flow graph of a PFP program, using graphviz/dot.
-/// https://graphviz.org/. (you must have the `dot` command line tool installed, I got mine from brew.).
+/// <https://graphviz.org/>. (you must have the `dot` command line tool installed, I got mine from brew.).
 ///
 /// This function is intended for use debugging verifier errors.
 ///
 /// # Panics
 /// - This can panic in a wide variety of cases, so don't use it in prod -- it's intended for local
-/// development.
+///   development.
 #[cfg(feature = "visualize-cfg")]
 #[cfg(debug_assertions)] // again this is only for debugging
 pub fn open_cfg_dot(bytes: &[u8]) {

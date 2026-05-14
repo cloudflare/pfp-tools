@@ -10,7 +10,7 @@ use std::process::ExitCode;
 #[derive(Parser, Debug)]
 #[command(
     about = "Verify a PFP eBPF program ELF file",
-    author = "Cloudflare, Inc.",
+    author = "Cloudflare, Inc."
 )]
 struct Cli {
     /// ELF file to verify.
