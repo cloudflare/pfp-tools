@@ -1,0 +1,27 @@
+# Copyright (c) 2024 Cloudflare, Inc.
+# Licensed under the Apache 2.0 license found in the LICENSE file or at:
+#     https://opensource.org/licenses/Apache-2.0
+
+[package]
+name = "pfp-headers"
+publish = false
+description = "Rust bindings to headers used when compiling Programmable Flow Protection programs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+
+[package.metadata.release]
+pre-release-commit-message = "Release {{version}}"
+tag-name ="{{version}}"
+publish = false
+pre-release-hook = [
+    "git-cliff",
+    "-o", "RELEASE_NOTES.md",
+    "--tag", "{{version}}"
+]
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.72.1" # BSD 3 Clause
