@@ -1,0 +1,5 @@
+# cargo build artifacts
+target/
+
+# intellij/rustrover config
+.idea/
