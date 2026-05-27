@@ -15,7 +15,6 @@ license.workspace = true
 [package.metadata.release]
 pre-release-commit-message = "Release {{version}}"
 tag-name ="{{version}}"
-publish = false
 pre-release-hook = [
     "git-cliff",
     "-o", "RELEASE_NOTES.md",
