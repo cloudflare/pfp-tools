@@ -4,17 +4,16 @@
 
 [package]
 name = "pfp-verifier"
-publish = false
 description = "Verifier used to check the validity & safety of Programmable Flow Protection programs"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 repository.workspace = true
+authors.workspace = true
 
 [package.metadata.release]
 pre-release-commit-message = "Release {{version}}"
 tag-name ="{{version}}"
-publish = false
 pre-release-hook = [
     "git-cliff",
     "-o", "RELEASE_NOTES.md",

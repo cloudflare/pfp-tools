@@ -4,12 +4,12 @@
 
 [package]
 name = "pfp-headers"
-publish = false
 description = "Rust bindings to headers used when compiling Programmable Flow Protection programs"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 repository.workspace = true
+authors.workspace = true
 
 [package.metadata.release]
 pre-release-commit-message = "Release {{version}}"
