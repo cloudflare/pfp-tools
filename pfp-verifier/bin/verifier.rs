@@ -3,7 +3,7 @@
 //     https://opensource.org/licenses/Apache-2.0
 
 use clap::Parser;
-use pfp_verifier::{VerifyError, verify_elf_file};
+use pfp_verifier::verify_elf_file;
 use std::path::PathBuf;
 use std::process::ExitCode;
 
@@ -11,7 +11,7 @@ use std::process::ExitCode;
 #[command(
     about = "Verify a PFP eBPF program ELF file",
     author = "Cloudflare, Inc.",
-    version,
+    version
 )]
 struct Cli {
     /// ELF file to verify.
