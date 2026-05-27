@@ -17,6 +17,7 @@ rust-version = "1.89.0"
 repository = "https://github.com/cloudflare/pfp-tools"
 authors = ["Venus Xeon-Blonde <venus@cloudflare.com>", "Cloudflare"]
 readme = "README.md"
+license = "Apache-2.0"
 
 [workspace.dependencies]
 pfp-headers = { path = "pfp-headers", version = "0.1.0" }
