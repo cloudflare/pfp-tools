@@ -10,7 +10,8 @@ use std::process::ExitCode;
 #[derive(Parser, Debug)]
 #[command(
     about = "Verify a PFP eBPF program ELF file",
-    author = "Cloudflare, Inc."
+    author = "Cloudflare, Inc.",
+    version,
 )]
 struct Cli {
     /// ELF file to verify.
@@ -24,10 +25,6 @@ fn main() -> ExitCode {
         Ok(inst_count) => {
             println!("{inst_count}");
             ExitCode::SUCCESS
-        }
-        Err(VerifyError::EntryPointNotFound) => {
-            eprintln!("error: {}", VerifyError::EntryPointNotFound);
-            ExitCode::from(64) // EX_USAGE — bad input, not an internal failure
         }
         Err(e) => {
             eprintln!("error: {e}");
