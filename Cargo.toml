@@ -10,7 +10,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.2.0"
+version = "0.3.0"
 publish = false
 edition = "2024"
 rust-version = "1.89.0"
@@ -20,8 +20,8 @@ readme = "README.md"
 license = "Apache-2.0"
 
 [workspace.dependencies]
-pfp-headers = { path = "pfp-headers", version = "0.2.0" }
-pfp-verifier = { path = "pfp-verifier",  version = "0.2.0", default-features = false }
+pfp-headers = { path = "pfp-headers", version = "0.3.0" }
+pfp-verifier = { path = "pfp-verifier",  version = "0.3.0", default-features = false }
 
 [profile.dev]
 opt-level = 1
