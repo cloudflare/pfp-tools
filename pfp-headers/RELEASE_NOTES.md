@@ -1,3 +1,8 @@
+## [0.3.0] - 2026-06-03
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump version to 0.3.0
 ## [0.2.0] - 2026-05-28
 
 ### 📚 Documentation

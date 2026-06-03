@@ -7,6 +7,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Cargo fmt
+- Bump version to 0.3.0
 ## [0.2.0] - 2026-05-28
 
 ### 📚 Documentation
