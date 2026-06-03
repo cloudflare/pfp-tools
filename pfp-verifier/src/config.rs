@@ -4,9 +4,7 @@
 
 //! Definition of options passed to prevail, and PFP-wide verification constants.
 
-use prevail::spec::config::{
-    EbpfRuntimeConfig, EbpfVerifierOptions, VerbosityOptions,
-};
+use prevail::spec::config::{EbpfRuntimeConfig, EbpfVerifierOptions, VerbosityOptions};
 
 /// The name of the entry-point function every PFP program must export.
 pub const MAIN_FUNCTION_NAME: &str = "cf_ebpf_main";

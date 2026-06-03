@@ -88,8 +88,12 @@ fn load_program(bytes: &[u8]) -> Result<(Program, ProgramInfo, usize), VerifyErr
     let inst_count = inst_seq.len();
 
     // Build the control-flow graph.
-    let program =
-        Program::from_sequence(&inst_seq, &mut raw_prog.info, &platform, &PFP_VERIFIER_OPTIONS)?;
+    let program = Program::from_sequence(
+        &inst_seq,
+        &mut raw_prog.info,
+        &platform,
+        &PFP_VERIFIER_OPTIONS,
+    )?;
 
     Ok((program, raw_prog.info, inst_count))
 }

@@ -8,8 +8,8 @@
 //! the shape of the struct passed in `r1` at program entry. Prevail uses this to
 //! track pointer bounds for memory-safety verification of packet data accesses.
 
-use prevail::spec::ebpf_base::EbpfCtxDescriptor;
 use pfp_headers::cf_ebpf_generic_ctx;
+use prevail::spec::ebpf_base::EbpfCtxDescriptor;
 use prevail::spec::type_descriptors::EbpfProgramType;
 
 /// Context descriptor for `cf_ebpf_generic` programs.
