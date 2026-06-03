@@ -24,8 +24,19 @@ const BASE_HELPER_PROTO: HelperPrototype = HelperPrototype {
     return_type: EbpfReturnType::Integer,
     argument_type: [EbpfArgumentType::DontCare; 5],
     reallocate_packet: false,
-    context_descriptor: None,
+    ctx_descriptor: None,
     unsupported: false,
+
+    // None of our helpers should be putting the thread to sleep
+    might_sleep: false,
+
+    // (venus, 3 June 2026):
+    // newer feature from prevail, none of our args to any helper needs to be provably 0
+    // afaik.
+    zero_args_mask: 0b00000,
+
+    // we don't allow any maps, so this can stay 0, I think.
+    allowed_map_types: 0,
 };
 
 /// Prototypes for all pfp helper functions.

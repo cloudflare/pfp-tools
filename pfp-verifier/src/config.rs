@@ -5,7 +5,7 @@
 //! Definition of options passed to prevail, and PFP-wide verification constants.
 
 use prevail::spec::config::{
-    EbpfRuntimeConfig, EbpfVerifierOptions, PrepareCfgOptions, VerbosityOptions,
+    EbpfRuntimeConfig, EbpfVerifierOptions, VerbosityOptions,
 };
 
 /// The name of the entry-point function every PFP program must export.
@@ -21,15 +21,9 @@ pub const MAX_CALL_STACK_FRAMES: i32 = 4;
 
 /// We use these prevail options when verifying every single pfp program.
 pub const PFP_VERIFIER_OPTIONS: EbpfVerifierOptions = EbpfVerifierOptions {
-    // options for constructing control flow graph
-    cfg_opts: PrepareCfgOptions {
-        // make sure the program terminates.
-        check_for_termination: true,
-
-        // not sure what this one does but prevail defaults it to true.
-        // https://github.com/vbpf/prevail/blob/ac03ef646cfeeaab790a15e04ed833f182ed7f24/src/config.hpp#L13
-        must_have_exit: true,
-    },
+    // not sure what this one does but prevail defaults it to true.
+    // https://github.com/vbpf/prevail/blob/ac03ef646cfeeaab790a15e04ed833f182ed7f24/src/config.hpp#L13
+    must_have_exit: true,
 
     // we don't use maps, so not sure if this value here is even used anywhere.
     // prevail defaults to true, so that's what we use here.
@@ -49,6 +43,9 @@ pub const PFP_VERIFIER_OPTIONS: EbpfVerifierOptions = EbpfVerifierOptions {
         // if we're running on a big-endian system, assume the program was compiled on a big endian system.
         // in practice, we'll probably never run into this.
         big_endian: cfg!(target_endian = "big"),
+
+        // make sure the program terminates.
+        check_for_termination: true,
 
         subprogram_stack_size: STACK_FRAME_SIZE,
         max_call_stack_frames: MAX_CALL_STACK_FRAMES,

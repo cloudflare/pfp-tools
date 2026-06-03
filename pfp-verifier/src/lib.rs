@@ -69,7 +69,7 @@ fn load_program(bytes: &[u8]) -> Result<(Program, ProgramInfo, usize), VerifyErr
     // Parse all programs from the ELF, then find cf_ebpf_main.
     let raw_progs = elf_loader::read_elf(bytes, "", "", "", &PFP_VERIFIER_OPTIONS, &mut platform)?;
 
-    let raw_prog = raw_progs
+    let mut raw_prog = raw_progs
         .into_iter()
         .find(|p| p.function_name == MAIN_FUNCTION_NAME)
         .ok_or(VerifyError::EntryPointNotFound)?;
@@ -89,7 +89,7 @@ fn load_program(bytes: &[u8]) -> Result<(Program, ProgramInfo, usize), VerifyErr
 
     // Build the control-flow graph.
     let program =
-        Program::from_sequence(&inst_seq, &raw_prog.info, &platform, &PFP_VERIFIER_OPTIONS)?;
+        Program::from_sequence(&inst_seq, &mut raw_prog.info, &platform, &PFP_VERIFIER_OPTIONS)?;
 
     Ok((program, raw_prog.info, inst_count))
 }
@@ -103,6 +103,7 @@ pub fn verify_elf(bytes: &[u8]) -> Result<usize, VerifyError> {
 
     // Run the abstract interpreter.
     let ctx = DomainContext {
+        program: &program,
         program_info: &info,
         runtime: &PFP_VERIFIER_OPTIONS.runtime,
         options: &PFP_VERIFIER_OPTIONS,

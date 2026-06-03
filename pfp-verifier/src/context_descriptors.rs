@@ -8,8 +8,8 @@
 //! the shape of the struct passed in `r1` at program entry. Prevail uses this to
 //! track pointer bounds for memory-safety verification of packet data accesses.
 
+use prevail::spec::ebpf_base::EbpfCtxDescriptor;
 use pfp_headers::cf_ebpf_generic_ctx;
-use prevail::spec::ebpf_base::EbpfContextDescriptor;
 use prevail::spec::type_descriptors::EbpfProgramType;
 
 /// Context descriptor for `cf_ebpf_generic` programs.
@@ -22,7 +22,7 @@ use prevail::spec::type_descriptors::EbpfProgramType;
 ///     uint64_t metadata;  // offset 16 — scratch field
 /// };
 /// ```
-pub static CF_EBPF_GENERIC_DESCR: EbpfContextDescriptor = EbpfContextDescriptor {
+pub static CF_EBPF_GENERIC_DESCR: EbpfCtxDescriptor = EbpfCtxDescriptor {
     size: const {
         let size = size_of::<cf_ebpf_generic_ctx>() as i32;
 
@@ -46,16 +46,19 @@ pub static CF_EBPF_GENERIC_DESCR: EbpfContextDescriptor = EbpfContextDescriptor 
 /// PFP treats unspecified programs the same as generic: if a program's ELF
 /// section name doesn't match any known prefix, it still gets full packet-data
 /// context pointer tracking.
-pub static CF_EBPF_UNSPEC_DESCR: EbpfContextDescriptor = CF_EBPF_GENERIC_DESCR;
+pub static CF_EBPF_UNSPEC_DESCR: EbpfCtxDescriptor = CF_EBPF_GENERIC_DESCR;
 
 /// Returns the program type used as a fallback when no section prefix matches.
 pub fn unspec_program_type() -> EbpfProgramType {
     EbpfProgramType {
         name: "unspec".into(),
-        context_descriptor: Some(&CF_EBPF_UNSPEC_DESCR),
+        ctx_descriptor: Some(&CF_EBPF_UNSPEC_DESCR),
         platform_specific_data: 0, // only used by prevail's linux-kernel-verifier path, which PFP never invokes
         section_prefixes: vec![],
         is_privileged: false,
+
+        // program cannot sleep
+        is_sleepable: false,
     }
 }
 
@@ -65,10 +68,13 @@ pub fn unspec_program_type() -> EbpfProgramType {
 pub fn generic_program_type() -> EbpfProgramType {
     EbpfProgramType {
         name: "cf_ebpf_generic".into(),
-        context_descriptor: Some(&CF_EBPF_GENERIC_DESCR),
+        ctx_descriptor: Some(&CF_EBPF_GENERIC_DESCR),
         platform_specific_data: 0, // only used by prevail's linux-kernel-verifier path, which PFP never invokes
         section_prefixes: vec!["cf_ebpf_generic".into()],
         is_privileged: false,
+
+        // program cannot sleep
+        is_sleepable: false,
     }
 }
 
