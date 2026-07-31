@@ -38,7 +38,8 @@ pub static CF_EBPF_GENERIC_DESCR: EbpfCtxDescriptor = EbpfCtxDescriptor {
     // offsets:
     data: 0,
     end: 8,
-    meta: 16,
+    // `metadata` is scalar scratch storage, not a packet metadata pointer.
+    meta: -1,
 };
 
 /// Context descriptor for unspecified program types.
@@ -96,4 +97,22 @@ pub fn get_program_type(section: &str) -> EbpfProgramType {
                 .any(|prefix| section.starts_with(&prefix[..]))
         })
         .unwrap_or_else(unspec_program_type)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn generic_descriptor_matches_runtime_context() {
+        assert_eq!(
+            CF_EBPF_GENERIC_DESCR.data,
+            std::mem::offset_of!(cf_ebpf_generic_ctx, data) as i32
+        );
+        assert_eq!(
+            CF_EBPF_GENERIC_DESCR.end,
+            std::mem::offset_of!(cf_ebpf_generic_ctx, data_end) as i32
+        );
+        assert_eq!(CF_EBPF_GENERIC_DESCR.meta, -1);
+    }
 }
