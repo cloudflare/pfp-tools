@@ -39,6 +39,6 @@ jobs:
         run: cargo generate-lockfile --locked || cargo generate-lockfile
 
       - name: Run cargo audit
-        uses: rustsec/audit-check@master
+        uses: rustsec/audit-check@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
