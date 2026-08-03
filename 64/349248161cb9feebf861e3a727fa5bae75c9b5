@@ -1,0 +1,19 @@
+Cargo.lock
+  s_43b2f9f8fc3af3::t_2619644b2d8555 431,433
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "64349248161cb9feebf861e3a727fa5bae75c9b5",
+  "prompts": {},
+  "sessions": {
+    "s_43b2f9f8fc3af3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_04cbded1effe13eeNAZu11M82S",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Alice Williams <awilliams@cloudflare.com>"
+    }
+  }
+}
