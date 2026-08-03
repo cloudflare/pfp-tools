@@ -23,11 +23,12 @@ impl EbpfPlatform for PfpEbpfPlatform {
     /// # Panics
     /// - If `n` is not a valid/usable helper index.
     fn get_helper_prototype(&self, n: i32) -> &HelperPrototype {
-        if !self.is_helper_usable(n) {
-            panic!("invalid helper prototype access");
-        }
+        self.try_get_helper_prototype(n)
+            .expect("invalid helper prototype access")
+    }
 
-        &HELPER_PROTOS[n as usize]
+    fn try_get_helper_prototype(&self, n: i32) -> Option<&HelperPrototype> {
+        self.is_helper_usable(n).then(|| &HELPER_PROTOS[n as usize])
     }
 
     fn is_helper_usable(&self, n: i32) -> bool {
@@ -80,5 +81,23 @@ impl EbpfPlatform for PfpEbpfPlatform {
         // https://www.rfc-editor.org/rfc/rfc9669.html#helper-functions
         // I think we just return the default linux conformance groups here and we're fine.
         prevail::linux::linux_platform::conformance_groups::DEFAULT_GROUPS
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn helper_lookup_handles_supported_and_invalid_ids() {
+        let platform = PfpEbpfPlatform;
+
+        assert!(platform.try_get_helper_prototype(1).is_some());
+        assert!(platform.try_get_helper_prototype(-1).is_none());
+        assert!(
+            platform
+                .try_get_helper_prototype(HELPER_PROTOS.len() as i32)
+                .is_none()
+        );
     }
 }

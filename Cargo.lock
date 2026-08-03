@@ -428,9 +428,9 @@ dependencies = [
 
 [[package]]
 name = "prevail"
-version = "0.2.4"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "79bad64db79a68db223e231a595a9f4090eca180312e70ebc4d42a40f891aaea"
+checksum = "1c938688e6dd94a961d044480ca886bb8069005e843907322213af8d5d6c00aa"
 dependencies = [
  "clap",
  "fixedbitset",
