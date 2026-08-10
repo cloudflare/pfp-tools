@@ -145,9 +145,12 @@ jobs:
             exit 1
           fi
 
-      - name: Package pfp-headers
+      - name: Package crates
         if: steps.crates.outputs.release_needed == 'true'
-        run: cargo package --locked --no-verify -p pfp-headers
+        run: |
+          cargo package --locked --no-verify -p pfp-headers
+          cargo package --locked --no-verify -p pfp-verifier \
+            --config 'patch.crates-io.pfp-headers.path="pfp-headers"'
 
       - uses: rust-lang/crates-io-auth-action@v1
         if: steps.crates.outputs.release_needed == 'true'
