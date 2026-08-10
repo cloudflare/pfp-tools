@@ -1,3 +1,13 @@
+## [0.3.1] - 2026-08-10
+
+### Bug Fixes
+
+- Correct generic context modeling
+
+### Dependencies
+
+- Update Prevail to 0.2.6
+
 ## [0.3.0] - 2026-06-03
 
 ### 💼 Other

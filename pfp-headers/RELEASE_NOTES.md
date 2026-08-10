@@ -1,3 +1,9 @@
+## [0.3.1] - 2026-08-10
+
+### Miscellaneous Tasks
+
+- Keep the package version aligned with pfp-verifier
+
 ## [0.3.0] - 2026-06-03
 
 ### ⚙️ Miscellaneous Tasks
