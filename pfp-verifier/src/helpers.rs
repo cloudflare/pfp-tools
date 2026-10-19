@@ -300,4 +300,15 @@ pub const HELPER_PROTOS: &[HelperPrototype] = &[
         ],
         ..BASE_HELPER_PROTO
     },
+    HelperPrototype {
+        name: "param_lookup",
+        argument_type: [
+            EbpfArgumentType::Anything,
+            EbpfArgumentType::PtrToReadableMem,
+            EbpfArgumentType::ConstSizeOrZero,
+            EbpfArgumentType::PtrToWritableMem,
+            EbpfArgumentType::ConstSizeOrZero,
+        ],
+        ..BASE_HELPER_PROTO
+    },
 ];

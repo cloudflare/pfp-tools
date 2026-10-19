@@ -5,6 +5,27 @@ This repository holds the verifier and headers used for customer Programmable Fl
 For more information regarding Programmable Flow Protection, read the [blog post] and/or look at the
 [Cloudflare Developer Documentation].
 
+## Parameter map lookup
+
+`cf_ebpf_helper.h` declares a single read-only lookup helper for both IP families:
+
+```c
+static int (*param_lookup)(uint32_t param_id, const void *key, size_t key_len,
+                           void *value, size_t value_len);
+```
+
+Keys are network-order address bytes: pass a pointer to the IPv4 address with
+`key_len = 4`, or an IPv6 address with `key_len = 16`. Other lengths or a mismatch
+with the configured map's address family return `-4` (`InvalidParameters`).
+PREVAIL checks that `key_len` bytes are readable and initialized and `value_len`
+bytes are writable, using its standard pointer/length contracts.
+
+Success copies the configured integer width (1, 2, 4, or 8 bytes) in native host
+byte order and returns that width. Programs use the copied integer directly,
+without `ntohs`, `ntohl`, or `ntohll`; only IP keys use network byte order.
+The entire output buffer is zeroed on every return, including errors; see the
+header for the error codes.
+
 ## Release process
 
 Releases are triggered by merging a version bump to `main`. Dependency or source changes that keep
