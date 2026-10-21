@@ -1,3 +1,10 @@
+## [0.3.2] - 2026-10-21
+
+### Features
+
+- Add the read-only `param_lookup` helper for exact-match IPv4 and IPv6 parameter maps
+- Define a unified pointer-and-length ABI with native host-order integer results
+
 ## [0.3.1] - 2026-08-10
 
 ### Miscellaneous Tasks
