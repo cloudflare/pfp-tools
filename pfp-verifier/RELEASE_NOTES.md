@@ -1,3 +1,9 @@
+## [0.3.2] - 2026-10-21
+
+### Features
+
+- Add the `param_lookup` helper prototype with readable-key and writable-output buffer validation
+
 ## [0.3.1] - 2026-08-10
 
 ### Bug Fixes
