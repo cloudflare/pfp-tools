@@ -6,6 +6,7 @@
 #define CF_EBPF_HELPER_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 enum cf_ebpf_helper_type
 {
@@ -69,6 +70,9 @@ enum cf_ebpf_helper_type
     CF_EBPF_HASH_BLAKE2B_512_V0 = 19,
     
     CF_EBPF_HMAC_BLAKE2B_512_V0 = 20,
+
+    /* Read-only exact-match parameter maps. */
+    CF_EBPF_PARAM_LOOKUP_V0 = 21,
 
     CF_EBPF_NUM_HELPERS_MAX,
 };
@@ -140,6 +144,20 @@ static int (*set_network_analytics_tag)     (uint64_t value) = (int (*)(uint64_t
 
 static int (*hash_blake2b512) (const uint8_t *src, size_t src_len, uint8_t *dest, size_t dest_len) = (int (*)(const uint8_t*, size_t, uint8_t*, size_t)) CF_EBPF_HASH_BLAKE2B_512_V0;
 static int (*hmac_blake2b512) (const uint8_t *src, size_t src_len, uint8_t *dest, size_t dest_len) = (int (*)(const uint8_t*, size_t, uint8_t*, size_t)) CF_EBPF_HMAC_BLAKE2B_512_V0;
+
+/* Look up a key in a read-only parameter map. Parameter IDs are contiguous from
+ * zero. Key encoding and key_len must match the map's configured key type.
+ * Integer results use native host byte order. The key must be readable for key_len
+ * bytes; value must be writable for value_len bytes (zero is allowed).
+ * The entire output is zeroed on every return, then the configured value width
+ * is copied on success. Key/output overlap is supported: the key is read before
+ * the output is initialized.
+ * Returns bytes copied, or -1 NoEntry, -3 BufferTooSmall, -4 InvalidParameters,
+ * -5 FeatureNotEnabled, -7 NoSuchParam. Non-null buffers are required; invalid
+ * memory accesses are rejected by the verifier, not handled at runtime.
+ */
+static int (*param_lookup)(uint32_t param_id, const void *key, size_t key_len, void *value, size_t value_len) =
+    (int (*)(uint32_t, const void*, size_t, void*, size_t)) CF_EBPF_PARAM_LOOKUP_V0;
 
 #endif
 
