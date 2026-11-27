@@ -131,7 +131,7 @@ struct cf_ebpf_parsed_headers {
     struct ipv6hdr *ipv6;
     /* Pointer to the parsed UDP header. */
     struct udphdr  *udp;
-    /* Raw pointer to the last valid byte of the packet context data. */
+    /* Raw pointer to the byte after the last valid byte of the packet data. */
     uint8_t        *data_end;
 };
 
