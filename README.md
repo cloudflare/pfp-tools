@@ -5,6 +5,12 @@ This repository holds the verifier and headers used for customer Programmable Fl
 For more information regarding Programmable Flow Protection, read the [blog post] and/or look at the
 [Cloudflare Developer Documentation].
 
+| Directory | Contents |
+| --- | --- |
+| [`pfp-headers`](pfp-headers/) | The C headers that programs include: `cf_ebpf_defs.h` and `cf_ebpf_helper.h`. |
+| [`pfp-verifier`](pfp-verifier/) | The verifier that Cloudflare runs on every uploaded program. Install it with `cargo install pfp-verifier`. |
+| [`examples`](examples/) | Complete example programs, with a Makefile that compiles them with the same flags as Cloudflare and verifies them. |
+
 ## Parameter map lookup
 
 `cf_ebpf_helper.h` declares a single read-only lookup helper for both IP families:
