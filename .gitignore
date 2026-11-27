@@ -3,3 +3,6 @@ target/
 
 # intellij/rustrover config
 .idea/
+
+# example build output
+examples/build/
